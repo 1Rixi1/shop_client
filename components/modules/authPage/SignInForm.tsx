@@ -1,9 +1,9 @@
 import React from 'react'
 import styles from '@/styles/auth/index.module.scss'
 import { useForm } from 'react-hook-form'
-import { SignInFormType } from '@/types/auth'
 import { EmailInput } from '@/components/elements/authPage/EmailInput'
 import { PasswordInput } from '@/components/elements/authPage/PasswordInput'
+import { FormType } from '@/types/auth'
 
 export const SignInForm = ({ switchForm }: { switchForm: () => void }) => {
   const {
@@ -11,9 +11,9 @@ export const SignInForm = ({ switchForm }: { switchForm: () => void }) => {
     formState: { errors },
     handleSubmit,
     resetField,
-  } = useForm<SignInFormType>()
+  } = useForm<FormType>()
 
-  const onSubmit = async (data: SignInFormType) => {
+  const onSubmit = async (data: FormType) => {
     console.log('SignInFormType ---', data)
     resetField('email')
     resetField('password')
