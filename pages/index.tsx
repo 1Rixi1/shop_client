@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { AuthPage } from '@/components/templates/authPage'
 
 export default function Auth() {
   return (
@@ -9,7 +10,7 @@ export default function Auth() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/svg" sizes="32x32" href="/img/logo.svg" />
       </Head>
-      <h1>Auth</h1>
+      <AuthPage />
     </>
   )
 }
