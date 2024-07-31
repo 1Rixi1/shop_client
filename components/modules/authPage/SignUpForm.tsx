@@ -5,6 +5,9 @@ import { NameInput } from '@/components/elements/authPage/NameInput'
 import { EmailInput } from '@/components/elements/authPage/EmailInput'
 import { PasswordInput } from '@/components/elements/authPage/PasswordInput'
 import { FormType } from '@/types/auth'
+import { signUpResponse } from '@/app/api/auth'
+import { toast } from 'react-toastify'
+import {showErrorMessage} from "@/utils/error";
 
 export const SignUpForm = ({ switchForm }: { switchForm: () => void }) => {
   const {
@@ -15,11 +18,28 @@ export const SignUpForm = ({ switchForm }: { switchForm: () => void }) => {
   } = useForm<FormType>()
 
   const onSubmit = async (data: FormType) => {
-    console.log('SignInFormType ---', data)
-    switchForm()
-    resetField('email')
-    resetField('name')
-    resetField('password')
+    console.log('DATA ---', data)
+    try {
+      const response = await signUpResponse({
+        url: 'users/signup',
+        username: data.username,
+        email: data.email,
+        password: data.password,
+      })
+
+      if (!response) {
+        return
+      }
+
+      switchForm()
+      resetField('email')
+      resetField('username')
+      resetField('password')
+
+
+    } catch (err) {
+      showErrorMessage(err)
+    }
   }
 
   return (
