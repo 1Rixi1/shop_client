@@ -2,6 +2,9 @@ import styles from '@/styles/auth/index.module.scss'
 import { MutableRefObject, useRef } from 'react'
 import { SignUpForm } from '@/components/modules/authPage/SignUpForm'
 import { SignInForm } from '@/components/modules/authPage/SignInForm'
+import { ThemeMode } from '@/components/elements/themeMode/ThemeMode'
+import {useStore} from "effector-react";
+import {$theme} from "@/context/theme";
 
 export const AuthPage = () => {
   const switchCtn = useRef() as MutableRefObject<HTMLDivElement>
@@ -27,11 +30,19 @@ export const AuthPage = () => {
     bContainer.current.classList.toggle(styles.is_z200)
   }
 
+
+  const theme = useStore($theme)
+
+  const darkModeClass = theme === 'dark' ? styles.dark_mode : ''
+
   return (
-    <div className={styles.main}>
+    <div className={`${styles.main} ${darkModeClass}`}>
+      <div className={styles.mode_toggle}>
+        <ThemeMode />
+      </div>
       <div
         ref={aContainer}
-        className={`${styles.container} ${styles.a_container}`}
+        className={`${styles.container} ${styles.a_container} ${darkModeClass}`}
         id="a-container"
       >
         <SignUpForm switchForm={switchForm} />
@@ -39,50 +50,29 @@ export const AuthPage = () => {
 
       <div
         ref={bContainer}
-        className={`${styles.container} ${styles.b_container}`}
+        className={`${styles.container} ${styles.b_container} ${darkModeClass}`}
         id="b-container"
       >
-        <SignInForm switchForm={switchForm} />
-        {/*<form className={styles.form} id="b-form">*/}
-        {/*  <h2 className={`${styles.form_title} ${styles.title}`}>*/}
-        {/*    Sign in to Website*/}
-        {/*  </h2>*/}
-        {/*  <input*/}
-        {/*    className={styles.form__input}*/}
-        {/*    type="text"*/}
-        {/*    placeholder="Email"*/}
-        {/*  />*/}
-        {/*  <input*/}
-        {/*    className={styles.form__input}*/}
-        {/*    type="password"*/}
-        {/*    placeholder="Password"*/}
-        {/*  />*/}
-        {/*  <a className={styles.form__link}>Forgot your password?</a>*/}
-        {/*  <button*/}
-        {/*    className={`${styles.form__button} ${styles.button} ${styles.submit}`}*/}
-        {/*  >*/}
-        {/*    SIGN IN*/}
-        {/*  </button>*/}
-        {/*</form>*/}
+        <SignInForm />
       </div>
 
-      <div ref={switchCtn} className={styles.switch} id="switch-cnt">
-        <div ref={switchCircle1} className={styles.switch__circle}></div>
+      <div ref={switchCtn} className={`${styles.switch} ${darkModeClass}`} id="switch-cnt">
+        <div ref={switchCircle1} className={`${styles.switch__circle} ${darkModeClass}`}></div>
         <div
           ref={switchCircle2}
-          className={`${styles.switch__circle} ${styles.switch__circle__t}`}
+          className={`${styles.switch__circle} ${styles.switch__circle__t} ${darkModeClass}`}
         ></div>
 
         <div ref={switchC1} className={styles.switch__container} id="switch-c1">
-          <h2 className={`${styles.switch__title} ${styles.title}`}>
+          <h2 className={`${styles.switch__title} ${styles.title} ${darkModeClass}`}>
             Welcome Back !
           </h2>
-          <p className={`${styles.switch__description} ${styles.description}`}>
+          <p className={`${styles.switch__description} ${styles.description} ${darkModeClass}`}>
             To keep connected with us please login with your personal info
           </p>
           <button
             onClick={switchForm}
-            className={`${styles.switch__button} ${styles.button}`}
+            className={`${styles.switch__button} ${styles.button} ${darkModeClass}`}
           >
             SIGN IN
           </button>
@@ -92,15 +82,15 @@ export const AuthPage = () => {
           className={`${styles.switch__container} ${styles.is_hidden}`}
           id="switch-c2"
         >
-          <h2 className={`${styles.switch__title} ${styles.title}`}>
+          <h2 className={`${styles.switch__title} ${styles.title} ${darkModeClass}`}>
             Hello Friend !
           </h2>
-          <p className={`${styles.switch__description} ${styles.description}`}>
+          <p className={`${styles.switch__description} ${styles.description} ${darkModeClass}`}>
             Enter your personal details and start journey with us
           </p>
           <button
             onClick={switchForm}
-            className={`${styles.switch__button} ${styles.button}`}
+            className={`${styles.switch__button} ${styles.button} ${darkModeClass}`}
           >
             SIGN UP
           </button>

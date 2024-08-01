@@ -7,7 +7,9 @@ import { PasswordInput } from '@/components/elements/authPage/PasswordInput'
 import { FormType } from '@/types/auth'
 import { signUpResponse } from '@/app/api/auth'
 import { toast } from 'react-toastify'
-import {showErrorMessage} from "@/utils/error";
+import { showErrorMessage } from '@/utils/error'
+import { $theme } from '@/context/theme'
+import { useStore } from 'effector-react'
 
 export const SignUpForm = ({ switchForm }: { switchForm: () => void }) => {
   const {
@@ -35,22 +37,30 @@ export const SignUpForm = ({ switchForm }: { switchForm: () => void }) => {
       resetField('email')
       resetField('username')
       resetField('password')
-
-
     } catch (err) {
       showErrorMessage(err)
     }
   }
 
+  const theme = useStore($theme)
+
+  const darkModeClass = theme === 'dark' ? styles.dark_mode : ''
+
   return (
-    <form className={styles.form} id="a-form" onSubmit={handleSubmit(onSubmit)}>
-      <h2 className={`${styles.form_title} ${styles.title}`}>Create Account</h2>
+    <form
+      className={`${styles.form} ${darkModeClass}`}
+      id="a-form"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <h2 className={`${styles.form_title} ${styles.title} ${darkModeClass}`}>
+        Create Account
+      </h2>
       <NameInput register={register} errors={errors} />
       <EmailInput register={register} errors={errors} />
       <PasswordInput register={register} errors={errors} />
 
       <button
-        className={`${styles.form__button} ${styles.button} ${styles.submit}`}
+        className={`${styles.form__button} ${styles.button} ${styles.submit} ${darkModeClass}`}
       >
         SIGN UP
       </button>
