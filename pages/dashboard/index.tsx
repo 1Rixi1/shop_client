@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { Header } from '@/components/modules/header/Header'
 
 export default function Dashboard() {
   return (
@@ -9,7 +10,12 @@ export default function Dashboard() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/svg" sizes="32x32" href="/img/logo.svg" />
       </Head>
-      <h1>DashBoard</h1>
+
+      <Header />
+
+      <main>
+        <div className="overlay" />
+      </main>
     </>
   )
 }
